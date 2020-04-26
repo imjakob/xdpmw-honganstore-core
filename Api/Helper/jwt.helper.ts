@@ -7,14 +7,12 @@ import jwt from "jsonwebtoken";
  * @param tokenLife string
  * @param role number(0: admin, 1: user)
  */
-let generateToken = (user: object, secretSignature: string, tokenLife: string = "24h", role: number = 1) => {
+let generateToken = (user: object, secretSignature: string, tokenLife: string = "24h") => {
   return new Promise( (resolve, reject) => {
-    // Định nghĩa thông tin user để lưu vào token
-    const userData = { ...user, role: role === 0 ? "admin" : "user" };
 
     // Thực hiện ký và tạo token
     jwt.sign(
-      {data: userData},
+      {data: user},
       secretSignature,
       {
         algorithm: "HS256",

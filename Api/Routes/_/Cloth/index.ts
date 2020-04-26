@@ -4,6 +4,8 @@ import e from "express";
 const router = express.Router();
 const { createConnection } = Config;
 
+// Get all cloth
+// example: localhost:5000/api/cloth/all
 router.get("/all", (req, res) => {
   createConnection.query("select * from cloth", (err, result, field) => {
     if ( err ) {
@@ -22,6 +24,8 @@ router.get("/all", (req, res) => {
   });
 });
 
+// Get single cloth by id
+// example: localhost:5000/api/cloth/single/1
 router.get("/single/:id", (req, res) => {
   createConnection.query(`select * from cloth where cloth_id =  ${req.params.id}`, (err, result, field) => {
     if ( err ) {
@@ -39,6 +43,26 @@ router.get("/single/:id", (req, res) => {
   });
 });
 
+// Get pagination cloth
+// example: localhost:5000/api/cloth?skip=0&limit=10
+router.get("/", (req, res) => {
+  let skip = req.query.skip ? req.query.skip : 0,
+      limit = req.query.limit ? req.query.limit : 10; 
+  createConnection.query(`select * from cloth limit ${limit} offset ${skip}`, (err, result, field) => {
+    if ( err ) {
+      console.log(err);
+      res.json({
+        status: 404,
+        message: "error while query to database"
+      });
+    } else {
+      res.json({
+        status: 200,
+        result
+      });
+    }
+  });
+});
 
 
 export default router;

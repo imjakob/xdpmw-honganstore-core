@@ -49,47 +49,8 @@
 
 
 ----
-### __API URL__
-- __Perfume__
-  - __GET__
-    - get pagination: `/api/perfume?limit=...&skip=...`
-    - get by id: `/api/perfume/single/:id`
-    - get all: `/api/perfume/all`
-    - get pagination join brand-price-admin: `/api/perfume/join/brand-price-admin?limit=...&skip=...`
-    - get all join brand-price-admin: `/api/perfume/join/brand-price-admin/all`
-    - get single join brand-price-admin: `/api/perfume/join/brand-price-admin/single/:id`
-    - get pagination join brand-price: `/api/perfume/join/brand-price?limit=...&skip=...`
-    - get all join brand-price: `/api/perfume/join/brand-price/all`
-    - get single join brand-price: `/api/perfume/join/brand-price/single/:id`
-  - __POST__
-    - Add new an item: `/api/perfume/add`
-  - __PUT__
-    - Update all row: `/api/perfume/update/id`
-  - __PATCH__
-    - Update any row: `/api/perfume/patch/id`
-  - __DELETE__
-    - Delete an item: `/api/perfume/delete/id`
-- __Brand__
-  - __GET__
-    - get pagination: `/api/brand?limit=...&skip=...`
-    - get by id: `/api/brand/single/:id`
-    - get all: `/api/brand/all`
-  - __POST__
-    - Add new an item: `/api/brand/add`
-  - __PUT__
-    - Update all row: `/api/brand/update/id`
-  - __DELETE__
-    - Delete an item: `/api/brand/delete/id`
-- __Price__
-  - __GET__
-    - get pagination: `/api/price?limit=...&skip=...`
-    - get by id: `/api/price/single/:id`
-    - get all: `/api/price/all`
-    - get current available: `/api/price/current-price`
-  - __POST__
-  - __PUT__
-  - __PATCH__
-  - __DELETE__
+### __ENDPOINTS__
+
 
 ---
 

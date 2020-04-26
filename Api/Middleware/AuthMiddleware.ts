@@ -50,21 +50,24 @@ let isAuthAsAdmin = async (req: any, res: any, next: any) => {
   if ( tokenFromClient ) {
     try {
       const decode = await verifyToken(tokenFromClient, accessTokenSecret);
-      if ( decode["data"]["role"] === "admin" ) {
+      if ( decode["data"]["role"] === 1 ) {
         req.decode = decode;
         next();
-      } else return res.status(401).json({
+      } else return res.json({
+        status: 401,
         message: "Unauthorized"
       });
     } catch (error) {
-      return res.status(401).json({
+      return res.json({
+        status: 401,
         message: "Unauthorized"
       });
     }
   } else {
     // Không tìm thấy token trong req
-    return res.status(403).send({
-      message: "No token provided"
+    return res.json({
+      status: 403,
+      message: "Forbidden!! No token provided"
     });
   }
 };
@@ -80,11 +83,12 @@ let isValidId_or_isAdmin = (req: any, res: any, next: any) => {
         { data } = req.decode,
         idToken = data.id;
 
-  if ( data.role === "admin" ) {
+  if ( data.role === 1 ) {
     next();
   } else if ( id === idToken ) {
     next();
-  } else return res.status(400).send({
+  } else return res.json({
+    status: 403,
     message: "Invalid user"
   });
 };
