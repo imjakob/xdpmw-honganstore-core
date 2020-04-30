@@ -81,11 +81,11 @@ let isAuthAsAdmin = async (req: any, res: any, next: any) => {
 let isValidId_or_isAdmin = (req: any, res: any, next: any) => {
   const { id } = req.params,
         { data } = req.decode,
-        idToken = data.id;
+        idToken = data.user_id;
 
   if ( data.role === 1 ) {
     next();
-  } else if ( id === idToken ) {
+  } else if ( Number(id) === Number(idToken) ) {
     next();
   } else return res.json({
     status: 403,
