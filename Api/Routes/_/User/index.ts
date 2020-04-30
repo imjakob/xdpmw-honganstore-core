@@ -162,7 +162,7 @@ router.delete("/delete/:id", isAuthAsAdmin, (req, res) => {
       if ( result.affectedRows > 0 ) {
         res.json({
           status: 200,
-          result
+          message: "Delete user success"
         });
       } else {
         res.json({
