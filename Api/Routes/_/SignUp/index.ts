@@ -1,6 +1,5 @@
 import express from "express";
 import Config from "../../../../Config/Config";
-import e from "express";
 const router = express.Router();
 const { createConnection } = Config;
 

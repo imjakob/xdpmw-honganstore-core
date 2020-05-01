@@ -4,7 +4,6 @@ import Config from "../../../../Config/Config";
 const { createConnection } = Config;
 import middleware from "../../../Middleware/AuthMiddleware";
 import jwtHelper from "../../../Helper/jwt.helper";
-import e from "express";
 const { isAuth, isAuthAsAdmin, isValidId_or_isAdmin } = middleware;
 const { verifyToken } = jwtHelper;
 const { ACCESS_TOKEN_SECRET } = process.env;
@@ -168,6 +167,33 @@ router.delete("/delete/:id", isAuthAsAdmin, (req, res) => {
         res.json({
           status: 404,
           message: "Cant find user"
+        });
+      }
+    }
+  });
+});
+
+router.delete("/delete-multiple", isAuthAsAdmin, (req, res) => {
+  let {ids} = req.body,
+      idSplit = ids.replace(/(\])|(\[)|(\s)/gm, "").split(","),
+      query =  `delete from user where user_id in (${idSplit})` ;
+  createConnection.query(query, (err, result, field) => {
+    if ( err ) {
+      console.log(err);
+      res.json({
+        status: 404,
+        message: "Error while query to database"
+      });
+    } else {
+      if ( result.affectedRows > 0 ) {
+        res.json({
+          status: 200,
+          message: `Delete users ${idSplit} success`
+        });
+      } else {
+        res.json({
+          status: 400,
+          message: `Delete users ${idSplit} fail`
         });
       }
     }
