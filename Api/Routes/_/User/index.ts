@@ -128,6 +128,31 @@ router.put("/update/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
   });
 });
 
+// Update multiple user info not including password
+// example: localhost:5000/api/user/update/:id
+// router.put("/update-multiple", isAuthAsAdmin, (req, res) => {
+//   let user = {},
+//       bodyObjects = Object.entries(req.body);
+
+//   bodyObjects.map( item => {
+//     user[item[0]] = item[1];
+//   });
+//   createConnection.query(`update user set ? where user_id in ${req.params.id}`, user, (err, result, field) => {
+//     if ( err ) {
+//       console.log(err);
+//       res.json({
+//         status: 404,
+//         message: "Invalid Fields"
+//       });
+//     } else {
+//       res.json({
+//         status: 200,
+//         message: "Update user success"
+//       });
+//     }
+//   });
+// });
+
 // Update user's password 
 // example: localhost:5000/api/user/update-password/:id
 router.put("/update-password/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
