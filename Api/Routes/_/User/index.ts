@@ -103,6 +103,8 @@ router.post("/add", isAuthAsAdmin, (req, res) => {
   });
 });
 
+// Update user info not including password
+// example: localhost:5000/api/user/update/:id
 router.put("/update/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
   let user = {},
       bodyObjects = Object.entries(req.body);
@@ -126,6 +128,8 @@ router.put("/update/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
   });
 });
 
+// Update user's password 
+// example: localhost:5000/api/user/update-password/:id
 router.put("/update-password/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
   const { password } = req.body;
   if ( password ) {
@@ -150,6 +154,8 @@ router.put("/update-password/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
   }
 });
 
+// Delete single user 
+// example: localhost:5000/api/user/delete/:id
 router.delete("/delete/:id", isAuthAsAdmin, (req, res) => {
   createConnection.query(`delete from user where user_id = ${req.params.id}`, (err, result, field) => {
     if ( err ) {
@@ -173,6 +179,8 @@ router.delete("/delete/:id", isAuthAsAdmin, (req, res) => {
   });
 });
 
+// Delete multiple user 
+// example: localhost:5000/api/user/delete-multiple
 router.delete("/delete-multiple", isAuthAsAdmin, (req, res) => {
   let {ids} = req.body,
       idSplit = ids.replace(/(\])|(\[)|(\s)/gm, "").split(","),
