@@ -54,16 +54,19 @@ router.get("/single/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
 // example: localhost:5000/api/user/info
 router.get("/info", isAuth, async (req, res) => {
   let result = await verifyToken(req.header("authorization"), ACCESS_TOKEN_SECRET);
-  if ( result )
-    res.json({
-      status: 200,
-      result: result["data"]
-    });
-  else
-    res.json({
-      status: 401,
-      message: "Unauthorized"
-    });
+  createConnection.query(`select * from user where user_id = ${result["data"]["user_id"]}`, (err, result, field) => {
+    if ( err ) {
+      res.json({
+        status: 404,
+        message: "Error while query to database"
+      });
+    } else {
+      res.json({
+        status: 200,
+        result
+      });
+    }
+  });
 });
 
 // Create user 
