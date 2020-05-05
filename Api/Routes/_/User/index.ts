@@ -113,7 +113,9 @@ router.put("/update/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
       bodyObjects = Object.entries(req.body);
 
   bodyObjects.map( item => {
-    user[item[0]] = item[1];
+    if ( item[0] !== "password" ) {
+      user[item[0]] = item[1];
+    }
   });
   createConnection.query(`update user set ? where user_id = ${req.params.id}`, user, (err, result, field) => {
     if ( err ) {
@@ -159,19 +161,29 @@ router.put("/update/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
 // Update user's password 
 // example: localhost:5000/api/user/update-password/:id
 router.put("/update-password/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
-  const { password } = req.body;
-  if ( password ) {
-    createConnection.query(`update user set ? where user_id = ${req.params.id}`, {password}, (err, result, field) => {
+  const { newPassword, oldPassword } = req.body;
+  if ( newPassword && oldPassword ) {
+    createConnection.query(`update user set ? where user_id = ${req.params.id} and password='${oldPassword}'`, {password: newPassword}, (err, result, field) => {
       if ( err ) {
+        console.log(err);
         res.json({
           status: 404,
           message: "Invalid fields"
         });
       } else {
-        res.json({
-          status: 200,
-          message: "Update password success"
-        });
+        if ( result.affectedRows > 0 ) {
+          res.json({
+            status: 200,
+            // message: "Update password success"
+            message: "Đổi mật khẩu thành công"
+          });
+        } else {
+          res.json({
+            status: 200,
+            // message: "Update password success"
+            message: "Mật khẩu cũ sai"
+          });
+        }
       }
     });
   } else {

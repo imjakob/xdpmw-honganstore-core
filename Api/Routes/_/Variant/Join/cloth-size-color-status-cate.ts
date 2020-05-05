@@ -7,7 +7,7 @@ const { isAuth, isAuthAsAdmin, isValidId_or_isAdmin } = middleware;
 
 // Get all variant
 // example: localhost:5000/api/variant/join/full/all
-router.get("/all", isAuthAsAdmin, (req, res) => {
+router.get("/all", (req, res) => {
   let query = `
     SELECT 
       variant_id,

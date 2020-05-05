@@ -7,7 +7,9 @@ const { isAuth, isAuthAsAdmin, isValidId_or_isAdmin } = middleware;
 const { ACCESS_TOKEN_SECRET } = process.env;
 
 import full from  "./cloth-size-color-status-cate";
+import size_color from "./size-color";
 
 router.use("/join/full", full);
+router.use("/join/size-color", size_color);
 
 export default router;
