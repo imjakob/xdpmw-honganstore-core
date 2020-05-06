@@ -154,6 +154,7 @@ router.get("/", (req, res) => {
       });
     } else {
       res.json({
+        status: 200,
         pagination: {
           limit,
           skip,
