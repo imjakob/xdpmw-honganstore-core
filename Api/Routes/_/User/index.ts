@@ -179,7 +179,7 @@ router.put("/update-password/:id", isAuth, isValidId_or_isAdmin, (req, res) => {
           });
         } else {
           res.json({
-            status: 200,
+            status: 404,
             // message: "Update password success"
             message: "Mật khẩu cũ sai"
           });

@@ -8,7 +8,7 @@ import Join from "./Join/index";
 router.use("/", Join);
 
 router.get("/single/:id", (req, res) => {
-  createConnection.query(`select * from variant where variant_id = ${req.params.id}`, (err, result, field) => {
+  createConnection.query(`select * from variant where cloth_id = ${req.params.id}`, (err, result, field) => {
     if ( err ) {
       console.log(err);
       res.json({

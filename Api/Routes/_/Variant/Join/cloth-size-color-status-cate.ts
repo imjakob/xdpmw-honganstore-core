@@ -166,4 +166,54 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/cate/:id", (req, res) => {
+  let query = `
+    SELECT 
+      variant_id,
+      variant_stock,
+      price,
+      sold,
+      cloth.cloth_id,
+      cloth.cloth_name,
+      description,
+      brand,
+      img_1,
+      img_2,
+      img_3,
+      status_list.status_id,
+      status_list.status,
+      category.cate_id,
+      category.cate_name,
+      colors.color_id,
+      colors.color,
+      sizes.size_id,
+      sizes.size
+    FROM 
+      variant
+    JOIN
+      cloth, colors, sizes, status_list, category
+    WHERE
+      variant.color_id = colors.color_id
+      AND cloth.status = status_list.status_id
+      AND cloth.cate_id = category.cate_id
+      AND variant.size_id = sizes.size_id
+      AND cloth.cate_id = ${req.params.id}
+      AND variant.cloth_id = cloth.cloth_id
+  `;
+  createConnection.query(query, (err, result, field) => {
+    if ( err ) {
+      console.log(err);
+      res.json({
+        status: 404,
+        message: "Error while query to database"
+      });
+    } else {
+      res.json({
+        status: 200,
+        result
+      });
+    }
+  });
+});
+
 export default router;

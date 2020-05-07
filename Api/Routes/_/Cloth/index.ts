@@ -64,5 +64,21 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/cate/:id", (req, res) => {
+  createConnection.query(`select * from cloth where cate_id = ${req.params.id}`, (err, result, field) => {
+    if ( err ) {
+      console.log(err);
+      res.json({
+        status: 404,
+        message: "Error while query to database"
+      });
+    } else {
+      res.json({
+        status: 202,
+        result
+      });
+    }
+  });
+});
 
 export default router;

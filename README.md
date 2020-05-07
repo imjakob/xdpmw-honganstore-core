@@ -62,6 +62,7 @@
     - /api/variant/join/full/?skip=...&limit=... => (Lấy full thông tin variant theo phân trang)
     - /api/variant/join/full/all => (Lấy hết tất cả các variant full thông tin)
     - /api/variant/join/full/single/:id => (Lấy cụ thể 1 variant qua id của cloth)
+    - /api/variant/join/full/cate/:id => (Lấy các variant thuộc category id)
     ===============================================
     - /api/variant/join/size-color/:id => (Lọc size và color có trong cloth đó qua cloth id) (nên gọi khi vào trang detail của sản phẩm)
 - __Sign In__
@@ -99,6 +100,12 @@
     - /api/user/delete/:id (Xóa 1 user cụ thể qua id user, cần quyền admin)
     - /api/user/delete-multiple/:id (Xóa nhiều user qua ids đc gửi body, có thể chỉ gửi 1-n, không đc gửi 0, cần quyền admin) (Lưu ý: ids có "s")
     - => Mẫu: {ids: [1,2,3,4,5]}
+- __Cloth__
+  - __GET__
+    - /api/cloth/?skip=...?&limit=... => (Lấy cloth theo phân trang)
+    - /api/cloth/single/:id => (Lấy cụ thể 1 cloth qua cloth id)
+    - /api/cloth/all => (Lấy tất cả cloth, cần quyền admin)
+    - /api/cloth/cate/:id => (Lấy cloth qua cate id)
 
 ---
 
